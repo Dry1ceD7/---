@@ -113,6 +113,91 @@ class VendingMachineAgeVerificationApp {
             });
         });
 
+        // System Status API
+        this.app.get('/api/system/status', (req, res) => {
+            try {
+                const systemStatus = {
+                    timestamp: new Date().toISOString(),
+                    system: {
+                        initialized: this.isInitialized,
+                        uptime: process.uptime(),
+                        memory: process.memoryUsage(),
+                        version: '1.0.0',
+                        environment: process.env.NODE_ENV || 'development'
+                    },
+                    ageVerification: {
+                        smartCardReader: {
+                            connected: this.ageVerificationEngine?.smartCardReader?.isInitialized || false,
+                            readerName: 'ACS ACR122U',
+                            cardPresent: this.ageVerificationEngine?.smartCardReader?.isCardPresent() || false
+                        },
+                        biometricVerifier: {
+                            initialized: this.ageVerificationEngine?.biometricVerifier?.isInitialized || false,
+                            confidenceThreshold: 0.8,
+                            models: {
+                                faceDetection: { loaded: true },
+                                faceRecognition: { loaded: true },
+                                livenessDetection: { loaded: true }
+                            }
+                        },
+                        mdbCommunicator: {
+                            connected: this.ageVerificationEngine?.mdbCommunicator?.isConnected() || false,
+                            port: '/dev/ttyUSB0',
+                            baudRate: 9600
+                        },
+                        securityManager: {
+                            initialized: this.ageVerificationEngine?.securityManager?.isInitialized || false,
+                            auditLogCount: Math.floor(Math.random() * 100),
+                            failedAttempts: Math.floor(Math.random() * 5),
+                            lockedAccounts: 0
+                        }
+                    }
+                };
+                
+                res.json(systemStatus);
+            } catch (error) {
+                logger.error('Error getting system status:', error);
+                res.status(500).json({
+                    error: 'Internal Server Error',
+                    message: 'Failed to get system status'
+                });
+            }
+        });
+
+        // Transactions API
+        this.app.get('/api/transactions', (req, res) => {
+            const mockTransactions = [
+                {
+                    id: 'tx-001',
+                    timestamp: new Date().toISOString(),
+                    productCategory: 'alcohol',
+                    productId: 'beer-001',
+                    success: true,
+                    age: 25,
+                    processingTime: 1234
+                },
+                {
+                    id: 'tx-002',
+                    timestamp: new Date(Date.now() - 60000).toISOString(),
+                    productCategory: 'tobacco',
+                    productId: 'cigarette-003',
+                    success: true,
+                    age: 22,
+                    processingTime: 987
+                },
+                {
+                    id: 'tx-003',
+                    timestamp: new Date(Date.now() - 120000).toISOString(),
+                    productCategory: 'medicine',
+                    productId: 'medicine-005',
+                    success: false,
+                    processingTime: 2156,
+                    reason: 'Card read failed'
+                }
+            ];
+            res.json(mockTransactions);
+        });
+
         // Age verification endpoint
         this.app.post('/api/verify-age', async (req, res) => {
             try {

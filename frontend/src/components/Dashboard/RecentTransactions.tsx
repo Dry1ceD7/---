@@ -19,7 +19,7 @@ import {
   Refresh as RefreshIcon,
   Person as PersonIcon,
   LocalBar as AlcoholIcon,
-  Smoking as TobaccoIcon,
+  SmokingRooms as TobaccoIcon,
   ShoppingCart as GeneralIcon,
   LocalPharmacy as MedicineIcon,
 } from '@mui/icons-material';
