@@ -4,7 +4,7 @@
  * Implements purchase authorization and machine status monitoring
  */
 
-const SerialPort = require('serialport');
+const { SerialPort } = require('serialport');
 const logger = require('../utils/logger');
 
 class MDBCommunicator {
@@ -86,6 +86,13 @@ class MDBCommunicator {
         try {
             logger.info(`Initializing serial port: ${this.port} at ${this.baudRate} baud`);
             
+            // Check if we're in mock mode
+            if (process.env.MOCK_MDB === 'true') {
+                logger.info('MDB Mock mode enabled - skipping actual serial port initialization');
+                this.isConnected = true;
+                return;
+            }
+            
             this.serialPort = new SerialPort({
                 path: this.port,
                 baudRate: this.baudRate,
@@ -139,6 +146,12 @@ class MDBCommunicator {
         try {
             logger.info('Performing MDB handshake...');
             
+            // Check if we're in mock mode
+            if (process.env.MOCK_MDB === 'true') {
+                logger.info('MDB Mock mode - simulating successful handshake');
+                return;
+            }
+            
             // Send reset command
             await this.sendMDBCommand(this.mdbConstants.RESET, []);
             
@@ -178,6 +191,12 @@ class MDBCommunicator {
             }
             
             logger.info(`Sending MDB command: 0x${command.toString(16).padStart(2, '0')}`);
+            
+            // Check if we're in mock mode
+            if (process.env.MOCK_MDB === 'true') {
+                logger.info('MDB Mock mode - simulating command response');
+                return this.simulateMDBResponse(command, data);
+            }
             
             // Build MDB message
             const message = this.buildMDBMessage(command, data);
@@ -493,6 +512,21 @@ class MDBCommunicator {
             logger.error('Failed to disconnect from vending machine:', error);
             throw error;
         }
+    }
+
+    /**
+     * Simulate MDB response for mock mode
+     * @param {number} command - MDB command
+     * @param {Array} data - Command data
+     * @returns {Object} Mock response
+     */
+    simulateMDBResponse(command, data) {
+        return {
+            address: this.mdbConstants.VMC,
+            command: this.mdbConstants.VEND_SUCCESS,
+            data: [this.mdbConstants.STATUS_OK],
+            timestamp: Date.now()
+        };
     }
 
     /**

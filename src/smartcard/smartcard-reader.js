@@ -189,6 +189,11 @@ class SmartCardReader {
      * @returns {boolean} True if card is present
      */
     isCardPresent() {
+        // Check if we're in mock mode
+        if (process.env.MOCK_SMARTCARD === 'true') {
+            return true; // Always return true in mock mode
+        }
+        
         // Placeholder for card presence detection
         // In a real implementation, this would query the reader status
         return Math.random() > 0.5; // Simulate card presence
@@ -202,6 +207,12 @@ class SmartCardReader {
     async sendAPDU(command) {
         try {
             logger.info(`Sending APDU command: ${JSON.stringify(command)}`);
+            
+            // Check if we're in mock mode
+            if (process.env.MOCK_SMARTCARD === 'true') {
+                logger.info('Smart Card Mock mode - simulating APDU response');
+                return this.simulateMockResponse(command);
+            }
             
             if (!this.isCardPresent()) {
                 throw new Error('No card present');
@@ -311,6 +322,51 @@ class SmartCardReader {
             default:
                 return Buffer.from([0x6F, 0x00]); // Unknown instruction
         }
+    }
+
+    /**
+     * Simulate mock response for development mode
+     * @param {Object} command - APDU command object
+     * @returns {Object} Mock response
+     */
+    simulateMockResponse(command) {
+        // Simulate successful Thai ID card responses
+        if (command.ins === 0xA4) { // SELECT FILE
+            return {
+                data: Buffer.alloc(0),
+                status: 0x9000,
+                success: true,
+                statusText: 'Success'
+            };
+        } else if (command.ins === 0xB0) { // READ BINARY
+            if (command.p2 === 0xD9) { // Birth date
+                // Simulate Thai birth date for a 25-year-old (born in 2542 Buddhist Era = 1999 CE)
+                const birthDate = Buffer.from([0x25, 0x42, 0x01, 0x15]); // 2542-01-15
+                return {
+                    data: birthDate,
+                    status: 0x9000,
+                    success: true,
+                    statusText: 'Success'
+                };
+            } else if (command.p2 === 0xE1) { // Photo
+                // Simulate photo data
+                const photoData = Buffer.alloc(1024, 0xFF);
+                return {
+                    data: photoData,
+                    status: 0x9000,
+                    success: true,
+                    statusText: 'Success'
+                };
+            }
+        }
+        
+        // Default success response
+        return {
+            data: Buffer.alloc(0),
+            status: 0x9000,
+            success: true,
+            statusText: 'Success'
+        };
     }
 
     /**

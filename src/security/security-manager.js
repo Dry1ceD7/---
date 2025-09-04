@@ -460,7 +460,9 @@ class SecurityManager {
             this.lockedAccounts.clear();
             
             // Clear encryption key from memory
-            this.encryptionKey.fill(0);
+            if (Buffer.isBuffer(this.encryptionKey)) {
+                this.encryptionKey.fill(0);
+            }
             
             logger.info('Security manager cleanup completed');
             
