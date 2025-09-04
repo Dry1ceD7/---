@@ -1,0 +1,225 @@
+version: '3.8'
+
+services:
+  # Main Application
+  vending-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/vending_machine
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./uploads:/app/uploads
+    depends_on:
+      - mongodb
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - vending-network
+
+  # Frontend (served by nginx)
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend/build:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certificates:/etc/nginx/certificates
+    depends_on:
+      - vending-app
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=vending_machine
+    volumes:
+      - mongodb_data:/data/db
+      - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  # Monitoring with Prometheus
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  # Node Exporter for system metrics
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  # Log aggregation with ELK stack
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.8.0
+    volumes:
+      - ./monitoring/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logs:/logs
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.8.0
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  # Backup Service
+  backup:
+    image: alpine:latest
+    volumes:
+      - ./backups:/backups
+      - mongodb_data:/data/mongodb
+      - redis_data:/data/redis
+      - ./config:/data/config
+      - ./logs:/data/logs
+    command: >
+      sh -c "
+        apk add --no-cache mongodb-tools redis curl &&
+        while true; do
+          echo 'Starting backup...' &&
+          mongodump --host mongodb:27017 --out /backups/mongodb/$(date +%Y%m%d_%H%M%S) &&
+          redis-cli -h redis -p 6379 --rdb /backups/redis/dump_$(date +%Y%m%d_%H%M%S).rdb &&
+          tar -czf /backups/config_$(date +%Y%m%d_%H%M%S).tar.gz -C /data config &&
+          tar -czf /backups/logs_$(date +%Y%m%d_%H%M%S).tar.gz -C /data logs &&
+          find /backups -type f -mtime +7 -delete &&
+          echo 'Backup completed' &&
+          sleep 86400
+        done
+      "
+    depends_on:
+      - mongodb
+      - redis
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+  # Health Check Service
+  healthcheck:
+    image: alpine:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: >
+      sh -c "
+        apk add --no-cache curl docker-cli &&
+        while true; do
+          if ! curl -f http://vending-app:3000/health; then
+            echo 'Health check failed, restarting services...' &&
+            docker restart vending-app
+          fi &&
+          sleep 60
+        done
+      "
+    depends_on:
+      - vending-app
+    restart: unless-stopped
+    networks:
+      - vending-network
+
+volumes:
+  mongodb_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+  elasticsearch_data:
+
+networks:
+  vending-network:
+    driver: bridge

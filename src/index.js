@@ -20,6 +20,7 @@ require('dotenv').config();
 
 const logger = require('./utils/logger');
 const AgeVerificationEngine = require('./core/age-verification-engine');
+const WebSocketServer = require('./websocket/websocket-server');
 const config = require('./config/config');
 
 class VendingMachineAgeVerificationApp {
@@ -34,6 +35,7 @@ class VendingMachineAgeVerificationApp {
         });
         
         this.ageVerificationEngine = null;
+        this.webSocketServer = new WebSocketServer();
         this.isInitialized = false;
         this.port = process.env.PORT || 3000;
         
