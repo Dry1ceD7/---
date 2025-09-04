@@ -1,0 +1,39 @@
+{
+  "location": "DEMO001",
+  "startTime": "2025-09-04T08:26:42.118Z",
+  "duration": 60,
+  "transactions": [],
+  "performance": {
+    "totalTransactions": 0,
+    "successfulTransactions": 0,
+    "failedTransactions": 0,
+    "averageProcessingTime": 0,
+    "peakProcessingTime": 0,
+    "systemUptime": 0
+  },
+  "hardware": {
+    "smartCardReads": 0,
+    "smartCardErrors": 0,
+    "biometricCaptures": 0,
+    "biometricErrors": 0,
+    "mdbOperations": 0,
+    "mdbErrors": 0
+  },
+  "users": {
+    "totalUsers": 0,
+    "ageGroups": {
+      "under18": 0,
+      "age18to20": 0,
+      "age21to30": 0,
+      "age31to50": 0,
+      "over50": 0
+    },
+    "verificationMethods": {
+      "smartCardOnly": 0,
+      "biometricOnly": 0,
+      "dualVerification": 0
+    }
+  },
+  "errors": [],
+  "recommendations": []
+}
