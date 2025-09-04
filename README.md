@@ -1,4 +1,5 @@
-# 🤖 Advanced Vending Machine Age Verification System
+# 🤖 โปรแกรมยืนยันอายุตู้กดสินค้า (ผ่านบัตรประชาชน)
+## Advanced Vending Machine Age Verification System
 
 [![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade-blue.svg)](https://github.com/username/AutoVendingMachine)
 [![Production Ready](https://img.shields.io/badge/Production-Ready-green.svg)](https://github.com/username/AutoVendingMachine)

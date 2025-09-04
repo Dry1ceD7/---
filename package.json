@@ -1,7 +1,7 @@
 {
-  "name": "advanced-vending-machine-age-verification",
+  "name": "โปรแกรมยืนยันอายุตู้กดสินค้า-ผ่านบัตรประชาชน",
   "version": "1.0.0",
-  "description": "Production-ready Advanced Vending Machine Age Verification System with ML Analytics",
+  "description": "โปรแกรมยืนยันอายุตู้กดสินค้า (ผ่านบัตรประชาชน) - Advanced Vending Machine Age Verification System with ML Analytics",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
