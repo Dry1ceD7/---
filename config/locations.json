@@ -1,0 +1,353 @@
+{
+  "locations": [
+    {
+      "id": "LOC001",
+      "name": "Bangkok Central Plaza",
+      "address": "999/9 Rama I Road, Pathumwan, Bangkok 10330, Thailand",
+      "endpoint": "https://bangkok-central.vendingmachine.enterprise",
+      "coordinates": {
+        "latitude": 13.7563,
+        "longitude": 100.5018
+      },
+      "timezone": "Asia/Bangkok",
+      "credentials": {
+        "apiKey": "BKK001_${API_KEY}",
+        "token": "${JWT_TOKEN_BKK001}"
+      },
+      "hardware": {
+        "smartCardReader": {
+          "model": "ACS ACR122U",
+          "serialNumber": "ACR122U001",
+          "firmwareVersion": "2.14"
+        },
+        "camera": {
+          "model": "Logitech C920",
+          "resolution": "1920x1080",
+          "frameRate": 30
+        },
+        "vendingMachine": {
+          "manufacturer": "Crane Merchant Media",
+          "model": "BevMax 4",
+          "mdbVersion": "Level 3"
+        }
+      },
+      "configuration": {
+        "ageThresholds": {
+          "alcohol": 20,
+          "tobacco": 20,
+          "general": 18
+        },
+        "operatingHours": {
+          "start": "06:00",
+          "end": "23:00"
+        },
+        "products": [
+          {
+            "id": "BEER001",
+            "name": "Chang Beer",
+            "ageRequired": 20,
+            "price": 45.00,
+            "currency": "THB"
+          },
+          {
+            "id": "CIG001",
+            "name": "Marlboro Red",
+            "ageRequired": 20,
+            "price": 120.00,
+            "currency": "THB"
+          }
+        ]
+      },
+      "monitoring": {
+        "healthCheckInterval": 30000,
+        "alertThresholds": {
+          "responseTime": 2000,
+          "errorRate": 5,
+          "successRate": 90
+        }
+      }
+    },
+    {
+      "id": "LOC002",
+      "name": "Chiang Mai University Campus",
+      "address": "239 Huay Kaew Road, Muang District, Chiang Mai 50200, Thailand",
+      "endpoint": "https://chiangmai-uni.vendingmachine.enterprise",
+      "coordinates": {
+        "latitude": 18.7883,
+        "longitude": 98.9853
+      },
+      "timezone": "Asia/Bangkok",
+      "credentials": {
+        "apiKey": "CMU002_${API_KEY}",
+        "token": "${JWT_TOKEN_CMU002}"
+      },
+      "hardware": {
+        "smartCardReader": {
+          "model": "ACS ACR122U",
+          "serialNumber": "ACR122U002",
+          "firmwareVersion": "2.14"
+        },
+        "camera": {
+          "model": "Logitech C920",
+          "resolution": "1920x1080",
+          "frameRate": 30
+        },
+        "vendingMachine": {
+          "manufacturer": "Azkoyen",
+          "model": "Palma ES6",
+          "mdbVersion": "Level 3"
+        }
+      },
+      "configuration": {
+        "ageThresholds": {
+          "alcohol": 20,
+          "tobacco": 20,
+          "general": 18
+        },
+        "operatingHours": {
+          "start": "06:00",
+          "end": "22:00"
+        },
+        "products": [
+          {
+            "id": "BEER002",
+            "name": "Singha Beer",
+            "ageRequired": 20,
+            "price": 45.00,
+            "currency": "THB"
+          },
+          {
+            "id": "CIG002",
+            "name": "L&M Blue",
+            "ageRequired": 20,
+            "price": 110.00,
+            "currency": "THB"
+          }
+        ]
+      },
+      "monitoring": {
+        "healthCheckInterval": 30000,
+        "alertThresholds": {
+          "responseTime": 2000,
+          "errorRate": 5,
+          "successRate": 90
+        }
+      }
+    },
+    {
+      "id": "LOC003",
+      "name": "Phuket International Airport",
+      "address": "Mai Khao, Thalang District, Phuket 83110, Thailand",
+      "endpoint": "https://phuket-airport.vendingmachine.enterprise",
+      "coordinates": {
+        "latitude": 8.1132,
+        "longitude": 98.3169
+      },
+      "timezone": "Asia/Bangkok",
+      "credentials": {
+        "apiKey": "HKT003_${API_KEY}",
+        "token": "${JWT_TOKEN_HKT003}"
+      },
+      "hardware": {
+        "smartCardReader": {
+          "model": "ACS ACR122U",
+          "serialNumber": "ACR122U003",
+          "firmwareVersion": "2.14"
+        },
+        "camera": {
+          "model": "Logitech C930e",
+          "resolution": "1920x1080",
+          "frameRate": 30
+        },
+        "vendingMachine": {
+          "manufacturer": "Jofemar",
+          "model": "Vision Plus",
+          "mdbVersion": "Level 3"
+        }
+      },
+      "configuration": {
+        "ageThresholds": {
+          "alcohol": 20,
+          "tobacco": 20,
+          "general": 18
+        },
+        "operatingHours": {
+          "start": "05:00",
+          "end": "23:59"
+        },
+        "products": [
+          {
+            "id": "BEER003",
+            "name": "Leo Beer",
+            "ageRequired": 20,
+            "price": 55.00,
+            "currency": "THB"
+          },
+          {
+            "id": "CIG003",
+            "name": "Camel Blue",
+            "ageRequired": 20,
+            "price": 130.00,
+            "currency": "THB"
+          }
+        ]
+      },
+      "monitoring": {
+        "healthCheckInterval": 30000,
+        "alertThresholds": {
+          "responseTime": 1500,
+          "errorRate": 3,
+          "successRate": 95
+        }
+      }
+    },
+    {
+      "id": "LOC004",
+      "name": "Pattaya Beach Resort",
+      "address": "Beach Road, Pattaya City, Chonburi 20150, Thailand",
+      "endpoint": "https://pattaya-beach.vendingmachine.enterprise",
+      "coordinates": {
+        "latitude": 12.9236,
+        "longitude": 100.8825
+      },
+      "timezone": "Asia/Bangkok",
+      "credentials": {
+        "apiKey": "PTY004_${API_KEY}",
+        "token": "${JWT_TOKEN_PTY004}"
+      },
+      "hardware": {
+        "smartCardReader": {
+          "model": "ACS ACR122U",
+          "serialNumber": "ACR122U004",
+          "firmwareVersion": "2.14"
+        },
+        "camera": {
+          "model": "Logitech C920",
+          "resolution": "1920x1080",
+          "frameRate": 30
+        },
+        "vendingMachine": {
+          "manufacturer": "Seaga",
+          "model": "INF5C",
+          "mdbVersion": "Level 3"
+        }
+      },
+      "configuration": {
+        "ageThresholds": {
+          "alcohol": 20,
+          "tobacco": 20,
+          "general": 18
+        },
+        "operatingHours": {
+          "start": "06:00",
+          "end": "02:00"
+        },
+        "products": [
+          {
+            "id": "BEER004",
+            "name": "Tiger Beer",
+            "ageRequired": 20,
+            "price": 50.00,
+            "currency": "THB"
+          },
+          {
+            "id": "CIG004",
+            "name": "Winston Red",
+            "ageRequired": 20,
+            "price": 115.00,
+            "currency": "THB"
+          }
+        ]
+      },
+      "monitoring": {
+        "healthCheckInterval": 30000,
+        "alertThresholds": {
+          "responseTime": 2000,
+          "errorRate": 5,
+          "successRate": 90
+        }
+      }
+    },
+    {
+      "id": "LOC005",
+      "name": "Krabi Town Center",
+      "address": "Uttarakit Road, Paknam, Krabi 81000, Thailand",
+      "endpoint": "https://krabi-town.vendingmachine.enterprise",
+      "coordinates": {
+        "latitude": 8.0863,
+        "longitude": 98.9063
+      },
+      "timezone": "Asia/Bangkok",
+      "credentials": {
+        "apiKey": "KBI005_${API_KEY}",
+        "token": "${JWT_TOKEN_KBI005}"
+      },
+      "hardware": {
+        "smartCardReader": {
+          "model": "ACS ACR122U",
+          "serialNumber": "ACR122U005",
+          "firmwareVersion": "2.14"
+        },
+        "camera": {
+          "model": "Logitech C920",
+          "resolution": "1920x1080",
+          "frameRate": 30
+        },
+        "vendingMachine": {
+          "manufacturer": "Evoca",
+          "model": "Necta Opera",
+          "mdbVersion": "Level 3"
+        }
+      },
+      "configuration": {
+        "ageThresholds": {
+          "alcohol": 20,
+          "tobacco": 20,
+          "general": 18
+        },
+        "operatingHours": {
+          "start": "07:00",
+          "end": "22:00"
+        },
+        "products": [
+          {
+            "id": "BEER005",
+            "name": "Heineken",
+            "ageRequired": 20,
+            "price": 60.00,
+            "currency": "THB"
+          },
+          {
+            "id": "CIG005",
+            "name": "Parliament Light",
+            "ageRequired": 20,
+            "price": 125.00,
+            "currency": "THB"
+          }
+        ]
+      },
+      "monitoring": {
+        "healthCheckInterval": 30000,
+        "alertThresholds": {
+          "responseTime": 2500,
+          "errorRate": 7,
+          "successRate": 85
+        }
+      }
+    }
+  ],
+  "centralManagement": {
+    "endpoint": "https://central.vendingmachine.enterprise",
+    "syncInterval": 300000,
+    "healthCheckInterval": 60000,
+    "backupInterval": 86400000,
+    "reportingInterval": 3600000
+  },
+  "deployment": {
+    "strategy": "rolling",
+    "maxUnavailable": 1,
+    "timeout": 600000,
+    "rollbackEnabled": true,
+    "healthCheckGracePeriod": 120000
+  }
+}
