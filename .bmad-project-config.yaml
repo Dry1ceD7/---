@@ -1,0 +1,37 @@
+# BMAD Project Configuration for AutoVendingMachine
+project:
+  name: "AutoVendingMachine"
+  type: "greenfield-fullstack"
+  domain: "retail-automation"
+  description: "An intelligent automated vending machine system"
+
+# BMAD Agents Configuration
+agents:
+  primary_team: "team-fullstack"
+  available_agents:
+    - analyst
+    - architect
+    - pm
+    - po
+    - dev
+    - qa
+    - ux-expert
+    - bmad-orchestrator
+
+# Workflow Configuration
+workflow:
+  type: "greenfield-fullstack"
+  planning_phase: "web-ui"  # Use web UI for cost-effective planning
+  execution_phase: "ide"    # Use IDE for development
+
+# Project Structure
+structure:
+  documentation_sharded: true
+  architecture_sharded: true
+  ide_config: "cursor"
+
+# Expansion Packs
+expansion_packs:
+  - bmad-2d-phaser-game-dev    # For any UI components
+  - bmad-infrastructure-devops # For deployment and monitoring
+  - bmad-creative-writing      # For documentation and content
