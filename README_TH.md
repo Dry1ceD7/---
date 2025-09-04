@@ -1,4 +1,5 @@
 # 🤖 โปรแกรมยืนยันอายุตู้กดสินค้า (ผ่านบัตรประชาชน)
+
 ## Advanced Vending Machine Age Verification System
 
 [![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade-blue.svg)](https://github.com/Dry1ceD7/---)
@@ -53,7 +54,7 @@ npm test
 
 ### สถาปัตยกรรมระบบองค์กร
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                    ชั้นระบบองค์กร                              │
 ├─────────────────────────────────────────────────────────────────┤
@@ -188,11 +189,11 @@ kubectl apply -f k8s/
 
 ### การเข้าถึงการตรวจสอบ
 
-* **แอปพลิเคชันหลัก**: http://localhost:3000
-* **แดชบอร์ดการวิเคราะห์**: http://localhost:3001
-* **เมตริก (Prometheus)**: http://localhost:9090
-* **บันทึก (Kibana)**: http://localhost:5601
-* **สุขภาพระบบ**: http://localhost:3000/health
+* **แอปพลิเคชันหลัก**: <http://localhost:3000>
+* **แดชบอร์ดการวิเคราะห์**: <http://localhost:3001>
+* **เมตริก (Prometheus)**: <http://localhost:9090>
+* **บันทึก (Kibana)**: <http://localhost:5601>
+* **สุขภาพระบบ**: <http://localhost:3000/health>
 
 ## 📚 **เอกสาร**
 
@@ -233,7 +234,7 @@ kubectl apply -f k8s/
 * **ปัญหา**: GitHub Issues
 * **การอภิปราย**: GitHub Discussions
 * **Wiki**: Project Wiki
-* **อีเมล**: support@vendingmachine.enterprise
+* **อีเมล**: <support@vendingmachine.enterprise>
 
 ---
 
