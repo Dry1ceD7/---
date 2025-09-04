@@ -2,10 +2,10 @@
 
 ## Advanced Vending Machine Age Verification System
 
-[![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade-blue.svg)](https://github.com/Dry1ceD7/---)
-[![Production Ready](https://img.shields.io/badge/Production-Ready-green.svg)](https://github.com/Dry1ceD7/---)
-[![AI Powered](https://img.shields.io/badge/AI-Powered-purple.svg)](https://github.com/Dry1ceD7/---)
-[![Multi Location](https://img.shields.io/badge/Multi-Location-orange.svg)](https://github.com/Dry1ceD7/---)
+[![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade-blue.svg)](https://github.com/Dry1ceD7/AutoVendingMachine)
+[![Production Ready](https://img.shields.io/badge/Production-Ready-green.svg)](https://github.com/Dry1ceD7/AutoVendingMachine)
+[![AI Powered](https://img.shields.io/badge/AI-Powered-purple.svg)](https://github.com/Dry1ceD7/AutoVendingMachine)
+[![Multi Location](https://img.shields.io/badge/Multi-Location-orange.svg)](https://github.com/Dry1ceD7/AutoVendingMachine)
 
 > **ระบบยืนยันอายุอัตโนมัติระดับองค์กรสำหรับตู้กดสินค้าด้วยการบูรณาการบัตรประชาชนไทย การยืนยันตัวตนด้วยชีวภาพขั้นสูง การวิเคราะห์ด้วยแมชชีนเลิร์นนิง และความสามารถในการติดตั้งหลายสถานที่**
 
@@ -131,8 +131,8 @@ npm test
 
 ```bash
 # Clone repository
-git clone https://github.com/Dry1ceD7/---.git
-cd โปรแกรมยืนยันอายุตู้กดสินค้า-ผ่านบัตรประชาชน
+git clone https://github.com/Dry1ceD7/AutoVendingMachine.git
+cd AutoVendingMachine
 
 # การตั้งค่าอัตโนมัติ
 ./scripts/automated-setup.sh

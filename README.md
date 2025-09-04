@@ -1,10 +1,10 @@
 # 🤖 โปรแกรมยืนยันอายุตู้กดสินค้า (ผ่านบัตรประชาชน)
 ## Advanced Vending Machine Age Verification System
 
-[![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade-blue.svg)](https://github.com/username/AutoVendingMachine)
-[![Production Ready](https://img.shields.io/badge/Production-Ready-green.svg)](https://github.com/username/AutoVendingMachine)
-[![AI Powered](https://img.shields.io/badge/AI-Powered-purple.svg)](https://github.com/username/AutoVendingMachine)
-[![Multi Location](https://img.shields.io/badge/Multi-Location-orange.svg)](https://github.com/username/AutoVendingMachine)
+[![Enterprise Grade](https://img.shields.io/badge/Enterprise-Grade-blue.svg)](https://github.com/Dry1ceD7/AutoVendingMachine)
+[![Production Ready](https://img.shields.io/badge/Production-Ready-green.svg)](https://github.com/Dry1ceD7/AutoVendingMachine)
+[![AI Powered](https://img.shields.io/badge/AI-Powered-purple.svg)](https://github.com/Dry1ceD7/AutoVendingMachine)
+[![Multi Location](https://img.shields.io/badge/Multi-Location-orange.svg)](https://github.com/Dry1ceD7/AutoVendingMachine)
 
 > **Enterprise-grade automated age verification system for vending machines with Thai National ID card integration, advanced biometric verification, machine learning analytics, and comprehensive multi-location deployment capabilities.**
 
@@ -120,7 +120,7 @@ npm test
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/username/AutoVendingMachine.git
+git clone https://github.com/Dry1ceD7/AutoVendingMachine.git
 cd AutoVendingMachine
 
 # Automated setup
